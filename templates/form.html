@@ -1,0 +1,11 @@
+<title>This is the form.html</title>
+<h1>Form</h1>
+
+<form action="{{url_for('form')}}" method="post">
+	<input type="text" name="name">
+	<button type="submit">Submit</button>
+</form>
+
+Hello, {{name}}
+
+<a href="{{ url_for('index')}}">Home</a>

@@ -1,6 +1,10 @@
 import flask
 app = flask.Flask("My Server")
 
+app.name = ""
+app.email=""
+app.message=""
+
 @app.route("/")
 def index():
 	html = """
@@ -23,6 +27,18 @@ def about():
 
 	return html
 
+@app.route("/message")
+def message():
+	#name = "edos"
+	html = """
+		<a href='%s'>Home</a> | <a href='%s'>About</a> | <a href='%s'>Contact Page</a><br><br>
+	""" % (flask.url_for("index"),
+		   flask.url_for("about"),
+		   flask.url_for("contact")
+		   )
+
+	return html + "Name: %s<br>Email: %s<br>Message: %s" %(app.name, app.email, app.message) 
+
 @app.route("/contact")
 def contact():
 	html = """
@@ -42,11 +58,12 @@ def form():
 		   flask.url_for("contact")
 		   )
 	#name = flask.request.form.get('name') #GET
-	name = flask.request.form.get('name') #POST
-	email = flask.request.form.get('email') #POST
-	message = flask.request.form.get('message') #POST
-	return html+flask.render_template("form.html", name=name, email=email, message=message)
 
+	app.name = flask.request.form.get('name') #POST
+	app.email = flask.request.form.get('email') #POST
+	app.message = flask.request.form.get('message') #POST
+	#return html+flask.render_template("form.html")
+	return "Name: %s<br>Email: %s<br>Message: %s" %(app.name, app.email, app.message) 
 
 if __name__ == "__main__":
 	app.debug = True

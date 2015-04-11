@@ -2,10 +2,14 @@
 <h1>Form</h1>
 
 <form action="{{url_for('form')}}" method="post">
-	<input type="text" name="name">
+	Name: <input type="text" name="name"><br>
+	Email: <input type="text" name="email"><br>
+	Contact: <input type="text" name="message"><br>
 	<button type="submit">Submit</button>
 </form>
 
-Hello, {{name}}
+Name: {{name}}<br>
+Email: {{email}}<br>
+Message: {{message}}<br>
 
 <a href="{{ url_for('index')}}">Home</a>

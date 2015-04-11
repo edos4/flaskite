@@ -4,44 +4,48 @@ app = flask.Flask("My Server")
 @app.route("/")
 def index():
 	html = """
-	<a href='%s'>Home</a><br>
-	<a href='%s'>About</a><br>
-	<a href='%s'>Contact Page</a><br>
-	""" % (flask.url_for("Hello_World"),
-		   flask.url_for("Joke"),
-		   flask.url_for("Joke", name="Yourname"))
-	#return html
-	return flask.render_template("home.html")
+	<a href='%s'>Home</a> | <a href='%s'>About</a> | <a href='%s'>Contact Page</a><br>
+	""" % (flask.url_for("index"),
+		   flask.url_for("about"),
+		   flask.url_for("contact")
+		   )
+	return html+flask.render_template("home.html")
 
-@app.route("/hello")
-def Hello_World():
-	return "Hello World"
-
-@app.route("/whoami")
-def MyName():
-	html = """
-		<center>
-			<strong>Edwin</strong>
-		</center>"""
-	return html
-
-@app.route("/joke")
-@app.route("/joke/<name>")
-def Joke(name):
+@app.route("/about")
+def about():
 	#name = "edos"
 	html = """
-	<img src='%s' />
-	Chuck Norris haha<br>
-	has a live bear %ss<br>
-	lying on the""" %(flask.url_for('static', filename='cat.jpg'), name)
+		<a href='%s'>Home</a> | <a href='%s'>About</a> | <a href='%s'>Contact Page</a><br><br>I am a mini website done in Python and Flask. See me at <a href="https://github.com/edos4/flaskite">Flasksite</a>
+	""" % (flask.url_for("index"),
+		   flask.url_for("about"),
+		   flask.url_for("contact")
+		   )
 
 	return html
+
+@app.route("/contact")
+def contact():
+	html = """
+	<a href='%s'>Home</a> | <a href='%s'>About</a> | <a href='%s'>Contact Page</a><br>
+	""" % (flask.url_for("index"),
+		   flask.url_for("about"),
+		   flask.url_for("contact")
+		   )
+	return html+flask.render_template("form.html")
 
 @app.route("/form", methods=["GET", "POST"])
 def form():
+	html = """
+	<a href='%s'>Home</a> | <a href='%s'>About</a> | <a href='%s'>Contact Page</a><br>
+	""" % (flask.url_for("index"),
+		   flask.url_for("about"),
+		   flask.url_for("contact")
+		   )
 	#name = flask.request.form.get('name') #GET
 	name = flask.request.form.get('name') #POST
-	return flask.render_template("form.html", name=name)
+	email = flask.request.form.get('email') #POST
+	message = flask.request.form.get('message') #POST
+	return html+flask.render_template("form.html", name=name, email=email, message=message)
 
 
 if __name__ == "__main__":
